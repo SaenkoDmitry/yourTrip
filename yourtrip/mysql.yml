@@ -1,0 +1,7 @@
+username: "dmitry"
+password: "dmmas#17"
+protocol: "tcp"
+host: "yourtrip-db.c1p1uywxmi9s.us-east-2.rds.amazonaws.com"
+port: 3306
+database: "yourtrip"
+encoding: "charset=utf8"

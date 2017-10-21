@@ -1,0 +1,10 @@
+yourtrip/.gradle/
+yourtrip/gradle/
+yourtrip/out/
+yourtrip/build/
+
+yourtrip/.idea/
+yourtrip/*/build/
+yourtrip/*/classes
+yourtrip/classes
+yourtrip/*.iml
