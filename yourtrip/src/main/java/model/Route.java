@@ -24,6 +24,9 @@ public class Route implements Serializable {
     @Column(name = "complete", nullable = false)
     private Boolean complete;
 
+    @Column(name = "hidden", nullable = false)
+    private Boolean hidden;
+
     @Column(name = "category", nullable = false)
     private String category;
 
@@ -42,10 +45,11 @@ public class Route implements Serializable {
 
     public Route() { }
 
-    public Route(String route_name, String commentary, Boolean complete, String category, Integer mark, Person personR) {
+    public Route(String route_name, String commentary, Boolean complete, Boolean hidden,  String category, Integer mark, Person personR) {
         this.route_name = route_name;
         this.commentary = commentary;
         this.complete = complete;
+        this.hidden = hidden;
         this.category = category;
         this.mark = mark;
         this.personR = personR;
@@ -58,6 +62,7 @@ public class Route implements Serializable {
                 ", route_name=" + route_name +
                 ", commentary='" + commentary + '\'' +
                 ", complete=" + complete +
+                ", hidden=" + hidden +
                 ", category=" + category +
                 ", mark=" + mark +
                 ", person=" + personR +
@@ -94,6 +99,14 @@ public class Route implements Serializable {
 
     public void setComplete(Boolean complete) {
         this.complete = complete;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
     public String getCategory() {

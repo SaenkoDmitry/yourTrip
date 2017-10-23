@@ -37,5 +37,6 @@
         <mapping class="model.Showplace"/>
         <mapping class="model.Showplace_from_to"/>
         <mapping class="model.Route_showplace_list"/>
+        <mapping class="model.Subscribe"/>
     </session-factory>
 </hibernate-configuration>

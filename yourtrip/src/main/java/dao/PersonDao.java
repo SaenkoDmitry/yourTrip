@@ -34,7 +34,9 @@ public class PersonDao {
     public void remove(Session session, Person person) {
         session.delete(person);
         List<Person> results = getAll(session);
-        session.flush();
+        if (results.size() > 0) {
+            session.flush();
+        }
     }
 
     public List<Person> getById(Session session, Integer id) {

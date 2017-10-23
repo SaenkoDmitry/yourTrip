@@ -1,11 +1,5 @@
-import dao.Database;
-import dao.PersonDao;
-import dao.RouteDao;
-import dao.ShowplaceDao;
-import model.Category;
-import model.Person;
-import model.Route;
-import model.Showplace;
+import dao.*;
+import model.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Before;
@@ -27,11 +21,11 @@ public class DatabaseModelTest {
         Transaction txn = session.beginTransaction();
         // cleaning table Person
         PersonDao.getInstance().clean(session);
-        Person person = new Person("test", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()));
+        Person person = new Person("test", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString());
 
         // adding person instance to table Person
         PersonDao.getInstance().insert(session, person);
-        Route route = new Route("home", "", true, Category.romantic.toString(), 5, person);
+        Route route = new Route("home", "", true, false, Category.romantic.toString(), 5, person);
 
         // adding route instance to table Route
         RouteDao.getInstance().insert(session, route);
@@ -59,6 +53,24 @@ public class DatabaseModelTest {
         ShowplaceDao.getInstance().clean(session);
         ShowplaceDao.getInstance().insert(session, showplace);
         ShowplaceDao.getInstance().getAll(session);
+        txn.commit();
+        session.close();
+    }
+
+    @Test
+    public void subscribeTest() throws Exception {
+        Session session = Database.session();
+        Transaction txn = session.beginTransaction();
+        PersonDao.getInstance().clean(session);
+        Person person = new Person("test", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString());
+        PersonDao.getInstance().insert(session, person);
+        Person person2 = new Person("test2", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString());
+        PersonDao.getInstance().insert(session, person2);
+        person = PersonDao.getInstance().getByName(session, "test").get(0);
+        person2 = PersonDao.getInstance().getByName(session, "test2").get(0);
+        Subscribe subscribe = new Subscribe(person, person2);
+        SubscribeDao.getInstance().clean(session);
+        SubscribeDao.getInstance().insert(session, subscribe);
         txn.commit();
         session.close();
     }

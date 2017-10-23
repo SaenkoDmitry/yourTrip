@@ -33,6 +33,9 @@ public class Person implements Serializable {
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
+    @Column(name = "role", nullable = false)
+    private String role;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="personR")
     private Set<Route> routesP;
 
@@ -42,12 +45,19 @@ public class Person implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="personL")
     private Set<Route_showplace_list> route_showplace_listsP;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="personS")
+    private Set<Subscribe> subscribesP;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="personS2")
+    private Set<Subscribe> subscribesP2;
+
     public Person() { }
 
-    public Person(String login, String password, String mail, Date birthday) {
+    public Person(String login, String password, String mail, Date birthday, String role) {
         this.login = login;
         this.mail = mail;
         this.birthday = birthday;
+        this.role = role;
         this.hash = HashGenerator.hashPassword(password);
     }
 
@@ -91,6 +101,14 @@ public class Person implements Serializable {
         this.birthday = birthday;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -99,6 +117,7 @@ public class Person implements Serializable {
                 ", hash='" + hash + '\'' +
                 ", mail='" + mail + '\'' +
                 ", birthday=" + birthday +
+                ", role=" + role +
                 '}';
     }
 

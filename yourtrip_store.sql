@@ -10,8 +10,17 @@ CREATE TABLE IF NOT EXISTS Person (
     hash varchar(200) NOT NULL,
     mail varchar(50) NOT NULL,
     birthday date NOT NULL,
+    role enum('normal', 'admin') NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (login)
+);
+
+CREATE TABLE IF NOT EXISTS Subscribe (
+    id serial,
+    person_id_from bigint unsigned NOT NULL,
+    person_id_to bigint unsigned NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (Person_id_from, Person_id_to)
 );
 
 -- Table: Route
@@ -20,6 +29,7 @@ CREATE TABLE IF NOT EXISTS Route (
     route_name varchar(100) NOT NULL,
     commentary varchar(200),
     complete bool NOT NULL,
+    hidden bool NOT NULL,
     category enum('family', 'active', 'romantic', 'cognitive') NOT NULL,
     mark int NOT NULL,
     person_id bigint unsigned NOT NULL,
@@ -78,3 +88,9 @@ ALTER TABLE Route_showplace_list ADD FOREIGN KEY (route_id) REFERENCES Route (id
 
 -- Reference: Route_showplace_list_Showplace (table: Route_showplace_list)
 ALTER TABLE Route_showplace_list ADD FOREIGN KEY (showplace_id) REFERENCES Showplace (id) ON DELETE CASCADE;
+
+-- Reference: Subscribe (table: Person)
+ALTER TABLE Subscribe ADD FOREIGN KEY (person_id_from) REFERENCES Person (id) ON DELETE CASCADE;
+
+-- Reference: Subscribe (table: Person)
+ALTER TABLE Subscribe ADD FOREIGN KEY (person_id_to) REFERENCES Person (id) ON DELETE CASCADE;
