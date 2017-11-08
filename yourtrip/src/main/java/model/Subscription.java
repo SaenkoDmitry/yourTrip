@@ -3,8 +3,8 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Subscribe", schema = "yourtrip")
-public class Subscribe {
+@Table(name = "Subscription", schema = "yourtrip")
+public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -41,16 +41,16 @@ public class Subscribe {
         this.personS2 = personS2;
     }
 
-    public Subscribe() { }
+    public Subscription() { }
 
-    public Subscribe(Person personS, Person personS2) {
+    public Subscription(Person personS, Person personS2) {
         this.personS = personS;
         this.personS2 = personS2;
     }
 
     @Override
     public String toString() {
-        return "Subscribe{" +
+        return "Subscription{" +
                 "id=" + id +
                 ", personS=" + personS +
                 ", personS2=" + personS2 +
@@ -60,11 +60,11 @@ public class Subscribe {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Subscribe)) return false;
+        if (!(o instanceof Subscription)) return false;
 
-        Subscribe subscribe = (Subscribe) o;
+        Subscription Subscription = (Subscription) o;
 
-        return getId() != null ? getId().equals(subscribe.getId()) : subscribe.getId() == null;
+        return getId() != null ? getId().equals(Subscription.getId()) : Subscription.getId() == null;
     }
 
     @Override

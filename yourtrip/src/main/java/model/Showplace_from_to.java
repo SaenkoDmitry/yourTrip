@@ -34,23 +34,35 @@ public class Showplace_from_to implements Serializable {
     @Column(name = "distance", nullable = false)
     private Integer distance;
 
+    @ManyToOne
+    @JoinColumn(name = "showplace_from_id")
+    private Showplace showplaceFt;
+
+    @ManyToOne
+    @JoinColumn(name = "showplace_to_id")
+    private Showplace showplaceFt2;
+
     public Showplace_from_to() { }
 
-    public Showplace_from_to(Person personFt, Route routeFt, Time spent_time, Integer distance) {
+    public Showplace_from_to(Person personFt, Route routeFt, Time spent_time, Integer distance, Showplace showplaceFt, Showplace showplaceFt2) {
         this.personFt = personFt;
         this.routeFt = routeFt;
         this.spent_time = spent_time;
         this.distance = distance;
+        this.showplaceFt = showplaceFt;
+        this.showplaceFt2 = showplaceFt2;
     }
 
     @Override
     public String toString() {
         return "Showplace_from_to{" +
                 "id=" + id +
-                ", person=" + personFt +
-                ", route=" + routeFt +
+                ", personFt=" + personFt +
+                ", routeFt=" + routeFt +
                 ", spent_time=" + spent_time +
                 ", distance=" + distance +
+                ", showplaceFt=" + showplaceFt +
+                ", showplaceFt2=" + showplaceFt2 +
                 '}';
     }
 
@@ -92,6 +104,22 @@ public class Showplace_from_to implements Serializable {
 
     public void setDistance(Integer distance) {
         this.distance = distance;
+    }
+
+    public Showplace getShowplaceFt() {
+        return showplaceFt;
+    }
+
+    public void setShowplaceFt(Showplace showplaceFt) {
+        this.showplaceFt = showplaceFt;
+    }
+
+    public Showplace getShowplaceFt2() {
+        return showplaceFt2;
+    }
+
+    public void setShowplaceFt2(Showplace showplaceFt2) {
+        this.showplaceFt2 = showplaceFt2;
     }
 
     @Override

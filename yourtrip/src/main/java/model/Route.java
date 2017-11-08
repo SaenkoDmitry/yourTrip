@@ -18,7 +18,7 @@ public class Route implements Serializable {
     @Column(name = "route_name", unique = true, nullable = false, length = 100)
     private String route_name;
 
-    @Column(name = "commentary", length = 200)
+    @Column(name = "commentary", length = 1000)
     private String commentary;
 
     @Column(name = "complete", nullable = false)
@@ -30,8 +30,14 @@ public class Route implements Serializable {
     @Column(name = "category", nullable = false)
     private String category;
 
-    @Column(name = "mark", nullable = false)
-    private Integer mark;
+    @Column(name = "mark_complexity", nullable = false)
+    private Double mark_complexity;
+
+    @Column(name = "mark_culture", nullable = false)
+    private Double mark_culture;
+
+    @Column(name = "mark_entertainment", nullable = false)
+    private Double mark_entertainment;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -45,13 +51,15 @@ public class Route implements Serializable {
 
     public Route() { }
 
-    public Route(String route_name, String commentary, Boolean complete, Boolean hidden,  String category, Integer mark, Person personR) {
+    public Route(String route_name, String commentary, Boolean complete, Boolean hidden, String category, Double mark_complexity, Double mark_culture, Double mark_entertainment, Person personR) {
         this.route_name = route_name;
         this.commentary = commentary;
         this.complete = complete;
         this.hidden = hidden;
         this.category = category;
-        this.mark = mark;
+        this.mark_complexity = mark_complexity;
+        this.mark_culture = mark_culture;
+        this.mark_entertainment = mark_entertainment;
         this.personR = personR;
     }
 
@@ -59,13 +67,15 @@ public class Route implements Serializable {
     public String toString() {
         return "Route{" +
                 "id=" + id +
-                ", route_name=" + route_name +
+                ", route_name='" + route_name + '\'' +
                 ", commentary='" + commentary + '\'' +
                 ", complete=" + complete +
                 ", hidden=" + hidden +
-                ", category=" + category +
-                ", mark=" + mark +
-                ", person=" + personR +
+                ", category='" + category + '\'' +
+                ", mark_complexity=" + mark_complexity +
+                ", mark_culture=" + mark_culture +
+                ", mark_entertainment=" + mark_entertainment +
+                ", personR=" + personR +
                 '}';
     }
 
@@ -117,12 +127,44 @@ public class Route implements Serializable {
         this.category = category;
     }
 
-    public Integer getMark() {
-        return mark;
+    public Double getMark_complexity() {
+        return mark_complexity;
     }
 
-    public void setMark(Integer mark) {
-        this.mark = mark;
+    public void setMark_complexity(Double mark_complexity) {
+        this.mark_complexity = mark_complexity;
+    }
+
+    public Double getMark_culture() {
+        return mark_culture;
+    }
+
+    public void setMark_culture(Double mark_culture) {
+        this.mark_culture = mark_culture;
+    }
+
+    public Double getMark_entertainment() {
+        return mark_entertainment;
+    }
+
+    public void setMark_entertainment(Double mark_entertainment) {
+        this.mark_entertainment = mark_entertainment;
+    }
+
+    public Set<Showplace_from_to> getShowplace_from_tosR() {
+        return showplace_from_tosR;
+    }
+
+    public void setShowplace_from_tosR(Set<Showplace_from_to> showplace_from_tosR) {
+        this.showplace_from_tosR = showplace_from_tosR;
+    }
+
+    public Set<Route_showplace_list> getRoute_showplace_listsR() {
+        return route_showplace_listsR;
+    }
+
+    public void setRoute_showplace_listsR(Set<Route_showplace_list> route_showplace_listsR) {
+        this.route_showplace_listsR = route_showplace_listsR;
     }
 
     public Person getPersonR() {

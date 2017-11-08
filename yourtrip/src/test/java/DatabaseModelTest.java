@@ -21,11 +21,11 @@ public class DatabaseModelTest {
         Transaction txn = session.beginTransaction();
         // cleaning table Person
         PersonDao.getInstance().clean(session);
-        Person person = new Person("test", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString());
+        Person person = new Person("test", "testik", "http://sdfdsfds", "dsds", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString(), false, false, false);
 
         // adding person instance to table Person
         PersonDao.getInstance().insert(session, person);
-        Route route = new Route("home", "", true, false, Category.romantic.toString(), 5, person);
+        Route route = new Route("home", "", true, false, Category.romantic.toString(), 5.0, 4.5, 3.0, person);
 
         // adding route instance to table Route
         RouteDao.getInstance().insert(session, route);
@@ -49,7 +49,7 @@ public class DatabaseModelTest {
     public void showplaceTest() throws Exception {
         Session session = Database.session();
         Transaction txn = session.beginTransaction();
-        Showplace showplace = new Showplace("moscow", "1:1", 5, 1, new Date(System.currentTimeMillis()));
+        Showplace showplace = new Showplace("moscow", "1:1", 5.0, 1, new Date(System.currentTimeMillis()));
         ShowplaceDao.getInstance().clean(session);
         ShowplaceDao.getInstance().insert(session, showplace);
         ShowplaceDao.getInstance().getAll(session);
@@ -62,15 +62,15 @@ public class DatabaseModelTest {
         Session session = Database.session();
         Transaction txn = session.beginTransaction();
         PersonDao.getInstance().clean(session);
-        Person person = new Person("test", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString());
+        Person person = new Person("test1", "testik", "http://sdfdsfds", "dsds", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString(), false, false, false);
         PersonDao.getInstance().insert(session, person);
-        Person person2 = new Person("test2", "qwerty", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString());
+        Person person2 = new Person("test2", "testik2", "http://sdfdsfds", "dsds", "lol@gmail.com", new Date(System.currentTimeMillis()), Role.normal.toString(), false, false, false);
         PersonDao.getInstance().insert(session, person2);
-        person = PersonDao.getInstance().getByName(session, "test").get(0);
+        person = PersonDao.getInstance().getByName(session, "test1").get(0);
         person2 = PersonDao.getInstance().getByName(session, "test2").get(0);
-        Subscribe subscribe = new Subscribe(person, person2);
-        SubscribeDao.getInstance().clean(session);
-        SubscribeDao.getInstance().insert(session, subscribe);
+        Subscription subscribe = new Subscription(person, person2);
+        SubscriptionDao.getInstance().clean(session);
+        SubscriptionDao.getInstance().insert(session, subscribe);
         txn.commit();
         session.close();
     }

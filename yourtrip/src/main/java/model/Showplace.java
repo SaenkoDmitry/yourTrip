@@ -19,7 +19,7 @@ public class Showplace implements Serializable {
     private String coords;
 
     @Column(name = "avg_mark", nullable = false)
-    private Integer avg_mark;
+    private Double avg_mark;
 
     @Column(name = "num_of_marks", nullable = false)
     private Integer num_of_marks;
@@ -30,9 +30,15 @@ public class Showplace implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="showplaceL")
     private Set<Route_showplace_list> route_showplace_listsS;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="showplaceFt")
+    private Set<Showplace_from_to> showplace_from_tosS1;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="showplaceFt2")
+    private Set<Showplace_from_to> showplace_from_tosS2;
+
     public Showplace() { }
 
-    public Showplace(String showplace_name, String coords, Integer avg_mark, Integer num_of_marks, Date visit_date) {
+    public Showplace(String showplace_name, String coords, Double avg_mark, Integer num_of_marks, Date visit_date) {
         this.showplace_name = showplace_name;
         this.coords = coords;
         this.avg_mark = avg_mark;
@@ -84,11 +90,11 @@ public class Showplace implements Serializable {
         this.visit_date = visit_date;
     }
 
-    public Integer getAvg_mark() {
+    public Double getAvg_mark() {
         return avg_mark;
     }
 
-    public void setAvg_mark(Integer avg_mark) {
+    public void setAvg_mark(Double avg_mark) {
         this.avg_mark = avg_mark;
     }
 

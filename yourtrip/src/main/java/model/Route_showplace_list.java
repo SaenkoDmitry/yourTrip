@@ -12,6 +12,12 @@ public class Route_showplace_list implements Serializable {
     @Column(name = "index_number", nullable = false)
     private Integer index_number;
 
+    @Column(name = "visit_date", nullable = false)
+    private Integer visit_date;
+
+    @Column(name = "showplace_mark", nullable = false)
+    private Double showplace_mark;
+
     public Route_showplace_list() { }
 
     @ManyToOne
@@ -56,19 +62,27 @@ public class Route_showplace_list implements Serializable {
 //    }
 
 
-    public Route_showplace_list(PersonRouteShowplaceId id, Integer index_number, Person personL, Route routeL, Showplace showplaceL) {
+    public Route_showplace_list(PersonRouteShowplaceId id, Integer index_number, Integer visit_date, Double showplace_mark, Person personL, Route routeL, Showplace showplaceL) {
         this.id = id;
         this.index_number = index_number;
+        this.visit_date = visit_date;
+        this.showplace_mark = showplace_mark;
         this.personL = personL;
         this.routeL = routeL;
         this.showplaceL = showplaceL;
     }
+
 
     @Override
     public String toString() {
         return "Route_showplace_list{" +
                 "id=" + id +
                 ", index_number=" + index_number +
+                ", visit_date=" + visit_date +
+                ", showplace_mark=" + showplace_mark +
+                ", personL=" + personL +
+                ", routeL=" + routeL +
+                ", showplaceL=" + showplaceL +
                 '}';
     }
 
@@ -80,12 +94,28 @@ public class Route_showplace_list implements Serializable {
         this.id = id;
     }
 
+    public Integer getVisit_date() {
+        return visit_date;
+    }
+
+    public void setVisit_date(Integer visit_date) {
+        this.visit_date = visit_date;
+    }
+
     public Integer getIndex_number() {
         return index_number;
     }
 
     public void setIndex_number(Integer index_number) {
         this.index_number = index_number;
+    }
+
+    public Double getShowplace_mark() {
+        return showplace_mark;
+    }
+
+    public void setShowplace_mark(Double showplace_mark) {
+        this.showplace_mark = showplace_mark;
     }
 
     @Override
