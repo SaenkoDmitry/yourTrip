@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Connection settings -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://yourtrip-db.c1p1uywxmi9s.us-east-2.rds.amazonaws.com:3306/yourtrip</property>
+        <property name="hibernate.connection.username">dmitry</property>
+        <property name="hibernate.connection.password">dmmas#17</property>
+
+        <!-- SQL dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!--Print executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="use_sql_comments">true</property>
+
+        <!--what to do with schema in database if it conflicts with mapping-->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!--handle transactions manually-->
+        <property name="hibernate.connection.autocommit">false</property>
+
+        <!--boot boost hack-->
+        <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+
+        <!--new session for new thread-->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!--mapping-->
+        <mapping class="ru.yourtrip.repo.models.Person"/>
+        <mapping class="ru.yourtrip.repo.models.Route"/>
+        <mapping class="ru.yourtrip.repo.models.Showplace"/>
+        <mapping class="ru.yourtrip.repo.models.Showplace_from_to"/>
+        <mapping class="ru.yourtrip.repo.models.Route_showplace_list"/>
+        <mapping class="ru.yourtrip.repo.models.Subscription"/>
+    </session-factory>
+</hibernate-configuration>

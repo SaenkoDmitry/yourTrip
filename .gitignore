@@ -1,10 +1,12 @@
-yourtrip/.gradle/
-yourtrip/gradle/
-yourtrip/out/
-yourtrip/build/
+.gradle/
+gradle/
+out/
+build/
 
-yourtrip/.idea/
-yourtrip/*/build/
-yourtrip/*/classes
-yourtrip/classes
-yourtrip/*.iml
+.idea/
+*/build/
+*/classes
+classes
+*.iml
+*.uml
+gradlew*
