@@ -1,5 +1,6 @@
 package ru.yourtrip.repo.controllers;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -7,8 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.yourtrip.repo.models.Person;
 import ru.yourtrip.repo.models.User;
 import ru.yourtrip.repo.repositories.PersonRepository;
+import ru.yourtrip.repo.utils.JwtUtil;
 import ru.yourtrip.repo.utils.TokenGenerator;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @RestController
@@ -23,21 +26,18 @@ public class AuthController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @GetMapping("/")
-    public ModelAndView authPage() {
-        return new ModelAndView("auth");
-    }
+//    @GetMapping("/")
+//    public ModelAndView authPage() {
+//        return new ModelAndView("auth");
+//    }
 
-    @PostMapping("/sign-in")
-    public String login(@RequestBody User user) {
-        Person person = personRepository.findByLogin(user.getLogin());
-        if (person != null && bCryptPasswordEncoder.matches(user.getPassword(), person.getHash())) {
-            return TokenGenerator.getToken(person);
-        }
-        else {
-            return "Failed";
-        }
-    }
+//    @PostMapping("/login")
+//    public String login(@RequestBody User user) {
+//        if(SecurityContextHolder.getContext().getAuthentication() != null) {
+//            return "redirect:/";
+//        }
+//        return "/";
+//    }
 
     @PostMapping("/sign-test")
     public String test() {
@@ -48,6 +48,10 @@ public class AuthController {
     public void register(@RequestBody Person person) {
         person.setHash(bCryptPasswordEncoder.encode(person.getHash()));
         person.setRole("normal");
-        personRepository.save(person);
+        try {
+            personRepository.save(person);
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

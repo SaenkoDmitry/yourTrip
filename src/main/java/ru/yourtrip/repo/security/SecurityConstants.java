@@ -1,4 +1,4 @@
-package ru.yourtrip.repo.utils;
+package ru.yourtrip.repo.security;
 
 public class SecurityConstants {
     public static final String SECRET = "SecretKeyToGenJWTs";

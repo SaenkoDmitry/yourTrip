@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS person (
     mail varchar(255) NOT NULL,
     birthday date NOT NULL,
     role enum('normal', 'admin') NOT NULL,
-    hidden_nickname bool NOT NULL,
-    hidden_mail bool NOT NULL,
-    hidden_birthday bool NOT NULL,
+    hidden_nickname bool,
+    hidden_mail bool,
+    hidden_birthday bool,
     PRIMARY KEY (id),
     UNIQUE (login)
 );

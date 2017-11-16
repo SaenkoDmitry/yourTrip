@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private String login;
-    private String password;
+    private String hash;
 
     public String getLogin() {
         return login;
@@ -15,19 +15,19 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getHash() {
+        return hash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", hash='" + hash + '\'' +
                 '}';
     }
 

@@ -1,4 +1,4 @@
-package ru.yourtrip.repo.utils;
+package ru.yourtrip.repo.security;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static ru.yourtrip.repo.utils.SecurityConstants.HEADER_STRING;
-import static ru.yourtrip.repo.utils.SecurityConstants.SECRET;
-import static ru.yourtrip.repo.utils.SecurityConstants.TOKEN_PREFIX;
+import static ru.yourtrip.repo.security.SecurityConstants.HEADER_STRING;
+import static ru.yourtrip.repo.security.SecurityConstants.SECRET;
+import static ru.yourtrip.repo.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

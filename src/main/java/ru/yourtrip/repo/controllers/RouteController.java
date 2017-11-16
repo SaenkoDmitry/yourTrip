@@ -24,7 +24,12 @@ public class RouteController {
 
     @GetMapping("/")
     public ModelAndView getAllRoutes() {
-        List<Route> model = routeRepository.findAll();
+        List<Route> model = new ArrayList<>();
+        try {
+            model = routeRepository.findAll();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("prods", model);
         return modelAndView;
@@ -34,7 +39,12 @@ public class RouteController {
     public ModelAndView getRoute() {
         List<Route> model = new ArrayList<>();
         Person person = new Person("testik", "testikov", "ssa", "dfdsfsd", "email.com", new Date(System.currentTimeMillis()), Role.normal.toString(), true, true, true);
-        personRepository.save(person);
+        try {
+            personRepository.save(person);
+        }
+        catch(Exception ex) {
+            System.out.println();
+        }
 //        Route route = new Route("name1", "ds", true, true, Category.active.toString(), 5.0, 4.0, 4.5, person);
 //        model.add(route);
         ModelAndView modelAndView = new ModelAndView("index");
