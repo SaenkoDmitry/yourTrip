@@ -5,11 +5,11 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!-- Connection settings -->
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://yourtrip-db.c1p1uywxmi9s.us-east-2.rds.amazonaws.com:3306/yourtrip</property>
-        <property name="hibernate.connection.username">dmitry</property>
-        <property name="hibernate.connection.password">dmmas#17</property>
+        <!--&lt;!&ndash; Connection settings &ndash;&gt;-->
+        <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+        <!--<property name="hibernate.connection.url">jdbc:mysql://yourtrip-db.c1p1uywxmi9s.us-east-2.rds.amazonaws.com:3306/yourtrip?useSSL=false</property>-->
+        <!--<property name="hibernate.connection.username">dmitry</property>-->
+        <!--<property name="hibernate.connection.password">dmmas#17</property>-->
 
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -38,5 +38,6 @@
         <mapping class="ru.yourtrip.repo.models.Showplace_from_to"/>
         <mapping class="ru.yourtrip.repo.models.Route_showplace_list"/>
         <mapping class="ru.yourtrip.repo.models.Subscription"/>
+        <mapping class="ru.yourtrip.repo.models.Image"/>
     </session-factory>
 </hibernate-configuration>

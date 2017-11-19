@@ -1,6 +1,7 @@
 package ru.yourtrip.repo.models;
 
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class Person implements Serializable {
     @Column(name = "mail", nullable = false, length = 255)
     private String mail;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 

@@ -1,5 +1,6 @@
 package ru.yourtrip.repo.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,13 +13,11 @@ import ru.yourtrip.repo.repositories.ShowplaceRepository;
 @RequestMapping("/search")
 public class SearchController {
 
-    final RouteRepository routeRepository;
-    final ShowplaceRepository showplaceRepository;
+    @Autowired
+    private RouteRepository routeRepository;
 
-    public SearchController(RouteRepository routeRepository, ShowplaceRepository showplaceRepository) {
-        this.routeRepository = routeRepository;
-        this.showplaceRepository = showplaceRepository;
-    }
+    @Autowired
+    private ShowplaceRepository showplaceRepository;
 
     @GetMapping("/")
     public ModelAndView searchPage(String []city, String []showplace, Integer distance, Integer spentTime, Integer minNumOfShowplace, Integer maxNumOfShowplace, String category, Boolean ascendingDate, Boolean ascendingRaiting) {
