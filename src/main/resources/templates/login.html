@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <style>
     .background-image {
@@ -248,9 +247,9 @@
                         <div th:if="${param.error}">
                             Invalid username and password.
                         </div>
-                        <div th:if="${param.logout}">
-                            You have been logged out.
-                        </div>
+                        <!--<div th:if="${param.logout}">-->
+                            <!--You have been logged out.-->
+                        <!--</div>-->
                         <form class="form-horizontal" id="nameform1" th:action="@{/login}" method="post">
                             <div class="form-group">
                                 <label for="login1">Login</label>
@@ -276,7 +275,7 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="Section2">
-                        <form class="form-horizontal" id="nameform2" href="/login" th:action="@{/auth/sign-up}" method="post">
+                        <form class="form-horizontal" href="/login" th:action="@{/auth/sign-up}" method="post" id="nameform2">
                             <div class="form-group">
                                 <label for="login2">Login</label>
                                 <input type="text" class="form-control" id="login2" name="login"/>
@@ -315,6 +314,12 @@
 </div><!-- /.container -->
 </body>
 
+
+
+
+
+
+<!--Not used-->
 <script>
 
     function signup() {

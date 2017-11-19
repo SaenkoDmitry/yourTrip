@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import ru.yourtrip.repo.models.Person;
 import ru.yourtrip.repo.models.Route;
 import ru.yourtrip.repo.repositories.PersonRepository;
 import ru.yourtrip.repo.repositories.RouteRepository;
@@ -36,9 +37,21 @@ public class BlogController {
 
     }
 
-    @PostMapping(value="/publishRoute", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void publishRoute(Route route, Long idPerson) {
+    @GetMapping(value="/creatingRoute")
+    public ModelAndView publishRoutePage(/*String username*/) {
+//        Person person = personRepository.findByLogin(username);
+        ModelAndView modelAndView = new ModelAndView("createroute");
+//        modelAndView.addObject("person_id", person.getId());
+        return modelAndView;
+    }
 
+    @PostMapping(value="/creatingRoute", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void publishRoute(Route route) {
+        try {
+            routeRepository.save(route);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 }

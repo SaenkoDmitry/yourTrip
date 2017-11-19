@@ -43,9 +43,7 @@ CREATE TABLE IF NOT EXISTS route (
     complete bool NOT NULL,
     hidden bool NOT NULL,
     category enum('family', 'active', 'romantic', 'cognitive') NOT NULL,
-    mark_complexity double NOT NULL,
-    mark_culture double NOT NULL,
-    mark_entertainment double NOT NULL,
+    mark double NOT NULL,
     person_id bigint unsigned NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (route_name)
