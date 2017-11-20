@@ -1,5 +1,6 @@
 package ru.yourtrip.repo.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,13 +11,11 @@ import ru.yourtrip.repo.repositories.SubscriptionRepository;
 @RequestMapping("/subscription")
 public class SubscriptionController {
 
-    final PersonRepository personRepository;
-    final SubscriptionRepository subscriptionRepository;
+    @Autowired
+    private PersonRepository personRepository;
 
-    public SubscriptionController(PersonRepository personRepository, SubscriptionRepository subscriptionRepository) {
-        this.personRepository = personRepository;
-        this.subscriptionRepository = subscriptionRepository;
-    }
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
     @PostMapping("/subscribe")
     public void subscribe(Long idFromPerson, Long idToPerson) {

@@ -1,37 +1,49 @@
 package ru.yourtrip.repo.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.yourtrip.repo.models.Person;
+import ru.yourtrip.repo.models.Route;
+import ru.yourtrip.repo.models.User;
 import ru.yourtrip.repo.repositories.PersonRepository;
+import ru.yourtrip.repo.utils.JwtUtil;
+import ru.yourtrip.repo.utils.TokenGenerator;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    final PersonRepository personRepository;
+    @Autowired
+    private PersonRepository personRepository;
 
-    public AuthController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/")
-    public ModelAndView authPage() {
-        return new ModelAndView("auth");
-    }
-
-    @PostMapping("/login")
-    public void login(String login, String password) {
-
-    }
-
-    @PostMapping("/register")
-    public void register(String login, String nickname, String avatar, String hash, String mail, Date birthday, String role, Boolean hidden_nickname, Boolean hidden_mail, Boolean hidden_birthday) {
-
+    @PostMapping(value="/sign-up", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ModelAndView register(Person person) {
+        person.setHash(bCryptPasswordEncoder.encode(person.getHash()));
+        person.setRole("normal");
+        person.setAvatar("None");
+        person.setHidden_nickname(true);
+        person.setHidden_mail(true);
+        person.setHidden_birthday(true);
+        try {
+            personRepository.save(person);
+        } catch(Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return new ModelAndView("login");
     }
 }

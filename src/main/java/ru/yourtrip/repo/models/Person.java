@@ -1,6 +1,7 @@
 package ru.yourtrip.repo.models;
 
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +10,6 @@ import java.util.Date;
 
 @Entity
 public class Person implements Serializable {
-    public static final Key key = MacProvider.generateKey();
 
     @Id
     @GeneratedValue
@@ -30,6 +30,7 @@ public class Person implements Serializable {
     @Column(name = "mail", nullable = false, length = 255)
     private String mail;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday", nullable = false)
     private Date birthday;
 
@@ -122,6 +123,30 @@ public class Person implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Boolean getHidden_nickname() {
+        return hidden_nickname;
+    }
+
+    public void setHidden_nickname(Boolean hidden_nickname) {
+        this.hidden_nickname = hidden_nickname;
+    }
+
+    public Boolean getHidden_mail() {
+        return hidden_mail;
+    }
+
+    public void setHidden_mail(Boolean hidden_mail) {
+        this.hidden_mail = hidden_mail;
+    }
+
+    public Boolean getHidden_birthday() {
+        return hidden_birthday;
+    }
+
+    public void setHidden_birthday(Boolean hidden_birthday) {
+        this.hidden_birthday = hidden_birthday;
     }
 
     @Override

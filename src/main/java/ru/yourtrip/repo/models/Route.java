@@ -29,18 +29,12 @@ public class Route implements Serializable {
     @Column(name = "category", nullable = false)
     private String category;
 
-    @Column(name = "mark_complexity", nullable = false)
-    private Double mark_complexity;
-
-    @Column(name = "mark_culture", nullable = false)
-    private Double mark_culture;
-
-    @Column(name = "mark_entertainment", nullable = false)
-    private Double mark_entertainment;
+    @Column(name = "mark", nullable = false)
+    private Double mark;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private Person personR;
+    private Person person_id;
 
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="routeFt")
 //    private Set<Showplace_from_to> showplace_from_tosR;
@@ -50,16 +44,14 @@ public class Route implements Serializable {
 
     public Route() { }
 
-    public Route(String route_name, String commentary, Boolean complete, Boolean hidden, String category, Double mark_complexity, Double mark_culture, Double mark_entertainment, Person personR) {
+    public Route(String route_name, String commentary, Boolean complete, Boolean hidden, String category, Double mark, Person personR) {
         this.route_name = route_name;
         this.commentary = commentary;
         this.complete = complete;
         this.hidden = hidden;
         this.category = category;
-        this.mark_complexity = mark_complexity;
-        this.mark_culture = mark_culture;
-        this.mark_entertainment = mark_entertainment;
-        this.personR = personR;
+        this.mark = mark;
+        this.person_id = personR;
     }
 
     @Override
@@ -71,10 +63,8 @@ public class Route implements Serializable {
                 ", complete=" + complete +
                 ", hidden=" + hidden +
                 ", category='" + category + '\'' +
-                ", mark_complexity=" + mark_complexity +
-                ", mark_culture=" + mark_culture +
-                ", mark_entertainment=" + mark_entertainment +
-                ", personR=" + personR +
+                ", mark=" + mark +
+                ", person_id=" + person_id +
                 '}';
     }
 
@@ -126,31 +116,15 @@ public class Route implements Serializable {
         this.category = category;
     }
 
-    public Double getMark_complexity() {
-        return mark_complexity;
+    public Double getMark() {
+        return mark;
     }
 
-    public void setMark_complexity(Double mark_complexity) {
-        this.mark_complexity = mark_complexity;
+    public void setMark(Double mark) {
+        this.mark = mark;
     }
 
-    public Double getMark_culture() {
-        return mark_culture;
-    }
-
-    public void setMark_culture(Double mark_culture) {
-        this.mark_culture = mark_culture;
-    }
-
-    public Double getMark_entertainment() {
-        return mark_entertainment;
-    }
-
-    public void setMark_entertainment(Double mark_entertainment) {
-        this.mark_entertainment = mark_entertainment;
-    }
-
-//    public Set<Showplace_from_to> getShowplace_from_tosR() {
+    //    public Set<Showplace_from_to> getShowplace_from_tosR() {
 //        return showplace_from_tosR;
 //    }
 //
@@ -166,12 +140,12 @@ public class Route implements Serializable {
 //        this.route_showplace_listsR = route_showplace_listsR;
 //    }
 
-    public Person getPersonR() {
-        return personR;
+    public Person getPerson_id() {
+        return person_id;
     }
 
-    public void setPersonR(Person personR) {
-        this.personR = personR;
+    public void setPerson_id(Person person_id) {
+        this.person_id = person_id;
     }
 
     @Override

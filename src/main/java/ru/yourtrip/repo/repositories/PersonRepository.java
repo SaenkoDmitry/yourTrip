@@ -6,4 +6,5 @@ import ru.yourtrip.repo.models.Person;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
+    Person findByLogin(String username);
 }

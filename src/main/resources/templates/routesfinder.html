@@ -38,12 +38,12 @@
         </form>
         <div sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" class="btn btn-secondary" />
+                <input type="submit" value="Logout" class="btn btn-secondary"></input>
             </form>
         </div>
         <div sec:authorize="isAnonymous()">
             <form th:action="@{/logout}" method="get">
-                <input type="submit" value="Login" class="btn btn-secondary" />
+                <input type="submit" value="Login" class="btn btn-secondary">Login /></input>
             </form>
         </div>
     </div>
@@ -51,45 +51,6 @@
 <!-- <div class="background-image"></div> -->
 
 
-<div class="jumbotron">
-    <h1 class="display-3">YourTrip</h1>
-    <p>This site intented by help you share different routes, which you make yourself</p>
-    <div sec:authorize="isAuthenticated()">
-        <h2>Hello, <span sec:authentication="principal.username" /></h2>
-        <!--<p><a class="btn btn-primary btn-lg" onclick="creatingRoute(username)">Create new route</a></p>-->
-        <form th:action="@{/blog/creatingRoute}" method="get">
-            <input type="submit" class="btn btn-primary btn-lg" value="Create new route" onclick="creatingRoute(this)" />
-        </form>
-    </div>
-    <div sec:authorize="isAnonymous()">
-        <!--<p><a class="btn btn-primary btn-lg" href="#">Find routes now</a></p>-->
-        <form th:action="@{/search/routes}" method="get">
-            <input type="submit" class="btn btn-primary btn-lg" value="Find routes now" />
-        </form>
-    </div>
-</div>
-
 </body>
 
 </html>
-
-<script>
-        function creatingRoute(obj) {
-            console.log(obj);
-            var credentialsJson = '{'
-                + '"username" : "' + 1
-                + '}';
-            var settings = {
-                type: "POST",
-                crossDomain: true,
-                url: "/blog/creatingRoute",
-                contentType: "application/json; charset=utf-8",
-                data: credentialsJson
-            };
-            $.ajax(settings).done(function (response) {
-            }).fail(function (jqXHR, textStatus) {
-                console.log(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);
-            });
-        }
-</script>
->>>>>>> temp-security

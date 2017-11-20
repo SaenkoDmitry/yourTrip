@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
+</head>
+
+<body>
+<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Yourtrip</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Find routes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Find places</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" style="position: absolute; left: 500px;">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <div sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout" class="btn btn-secondary">Logout, <span sec:authentication="principal.username" /></input>
+            </form>
+        </div>
+
+    </div>
+</nav>
+<!-- <div class="background-image"></div> -->
+
+<div class="card">
+	<h3 class="card-header">Creating new route</h3>
+	<div class="card-body">
+	<form th:action="@{/blog/creatingRoute}" method="post">
+	  <fieldset>
+	    <!-- <legend>Creating new route</legend> -->
+	    <div class="form-group">
+	        <label class="col-form-label col-form-label-lg" for="inputLarge">Route name</label>
+	        <input class="form-control form-control-lg" type="text" id="inputLarge" name="route_name" />
+	    </div>
+	    <div class="form-group">
+	      <label for="exampleTextarea">Description</label>
+	      <textarea class="form-control" id="exampleTextarea" rows="3" name="commentary"></textarea>
+	    </div>
+	    <div class="form-check">
+	      <label class="form-check-label">
+	        <input type="checkbox" class="form-check-input" name="complete" />
+	        Route was completed
+	      </label>
+	    </div>
+	    <div class="form-check">
+	      <label class="form-check-label">
+	        <input type="checkbox" class="form-check-input" name="hidden" />
+	        Route will be show other users
+	      </label>
+	    </div>
+	    <div class="form-group">
+	      <label for="select1">Category</label>
+	      <select class="form-control" id="select1" name="category">
+	        <option>family</option>
+	        <option>active</option>
+	        <option>romantic</option>
+	        <option>cognitive</option>
+	      </select>
+	    </div>
+	    <div class="form-group">
+	      <label for="select2">Mark</label>
+	      <select class="form-control" id="select2" name="mark">
+	        <option>1 - Fail</option>
+        	<option>2 - Enough</option>
+        	<option>3 - Creditable</option>
+        	<option>4 - Brilliant</option>
+        	<option>5 - Supreme</option>
+	      </select>
+	    </div>
+		<input type="hidden" class="form-control" value="${greeting.id}" id="person_id" name="person_id" />
+	    <button type="submit" class="btn btn-primary">Submit</button>
+	  </fieldset>
+	</form>
+</div>
+</div>
+
+</body>
+
+</html>

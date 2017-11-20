@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS person (
     mail varchar(255) NOT NULL,
     birthday date NOT NULL,
     role enum('normal', 'admin') NOT NULL,
-    hidden_nickname bool NOT NULL,
-    hidden_mail bool NOT NULL,
-    hidden_birthday bool NOT NULL,
+    hidden_nickname bool,
+    hidden_mail bool,
+    hidden_birthday bool,
     PRIMARY KEY (id),
     UNIQUE (login)
 );
@@ -43,9 +43,7 @@ CREATE TABLE IF NOT EXISTS route (
     complete bool NOT NULL,
     hidden bool NOT NULL,
     category enum('family', 'active', 'romantic', 'cognitive') NOT NULL,
-    mark_complexity double NOT NULL,
-    mark_culture double NOT NULL,
-    mark_entertainment double NOT NULL,
+    mark double NOT NULL,
     person_id bigint unsigned NOT NULL,
     PRIMARY KEY (id),
     UNIQUE (route_name)
