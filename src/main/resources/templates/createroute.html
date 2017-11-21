@@ -35,7 +35,7 @@
         </form>
         <div sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" class="btn btn-secondary">Logout, <span sec:authentication="principal.username" /></input>
+                <input type="submit" value="Logout" class="btn btn-secondary"><!--Logout, <span sec:authentication="principal.username" />--></input>
             </form>
         </div>
 

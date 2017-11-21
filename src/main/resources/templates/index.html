@@ -52,16 +52,56 @@
 
 
 <div class="jumbotron">
-    <h1 class="display-3">YourTrip</h1>
-    <p>This site intented by help you share different routes, which you make yourself</p>
     <div sec:authorize="isAuthenticated()">
-        <h2>Hello, <span sec:authentication="principal.username" /></h2>
+        <!--<h2>Hello, <span sec:authentication="principal.username" /></h2>-->
+        <div class="card">
+            <style>
+                .personal-info {
+                    text-align: center;
+                }
+            </style>
+            <h3 class="card-header">Personal information</h3>
+            <div class="card-body personal-info">
+                <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" alt="Card image" />
+                <hr />
+                    <h3>
+                        Login : <small class="text-muted"><span th:text="${person.login}"></span></small>
+                    </h3>
+                <hr />
+                <br />
+                    <h3>
+                        Nickname : <small class="text-muted"><span th:text="${person.nickname}"></span></small>
+                    </h3>
+                <hr />
+                <br />
+                    <h3>
+                        Email : <small class="text-muted"><span th:text="${person.mail}"></span></small>
+                    </h3>
+                <hr />
+                <br />
+                    <h3>
+                        Birthday : <small class="text-muted"><span th:text="${person.birthday}"></span></small>
+                    </h3>
+                <hr />
+            </div>
+            <!--<div class="card-body">-->
+                <!--<a href="#" class="card-link">Edit info</a>-->
+            <!--</div>-->
+            <div class="card-footer text-muted">
+                <a href="#" class="card-link">Edit info</a>
+            </div>
+        </div>
+        <br />
+        <br />
         <!--<p><a class="btn btn-primary btn-lg" onclick="creatingRoute(username)">Create new route</a></p>-->
         <form th:action="@{/blog/creatingRoute}" method="get">
             <input type="submit" class="btn btn-primary btn-lg" value="Create new route" />
         </form>
+        <!--/*@thymesVar id="person" type="ru.yourtrip.repo.models.Person"*/-->
     </div>
     <div sec:authorize="isAnonymous()">
+        <h1 class="display-3">YourTrip</h1>
+        <p>This site intented by help you share different routes, which you make yourself</p>
         <!--<p><a class="btn btn-primary btn-lg" href="#">Find routes now</a></p>-->
         <form th:action="@{/search/routes}" method="get">
             <input type="submit" class="btn btn-primary btn-lg" value="Find routes now" />

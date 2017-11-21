@@ -58,7 +58,7 @@ public class BlogController {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return new ModelAndView("index");
+        return new ModelAndView("redirect:/");
 
     }
 }
