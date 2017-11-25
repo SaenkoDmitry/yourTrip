@@ -14,5 +14,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/blog/creatingRoute").setViewName("createroute");
         registry.addViewController("/search/routes").setViewName("routesfinder");
         registry.addViewController("/").setViewName("index");
+        registry.addViewController("/blog/routes/{id}").setViewName("route");
     }
 }

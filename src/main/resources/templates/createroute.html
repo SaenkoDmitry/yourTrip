@@ -89,7 +89,15 @@
         	<option value="5.0">5 - Supreme</option>
 	      </select>
 	    </div>
-		<input type="hidden" class="form-control" th:field="*{person_id}" id="person_id" name="person_id" />
+		<div class="form-group">
+			<label class="col-form-label col-form-label-lg" for="inputLarge1">Lower price</label>
+			<input class="form-control form-control-lg" type="text" th:field="*{lowerPrice}" id="inputLarge1" name="route_name" />
+		</div>
+		  <div class="form-group">
+			  <label class="col-form-label col-form-label-lg" for="inputLarge2">Upper price</label>
+			  <input class="form-control form-control-lg" type="text" th:field="*{upperPrice}" id="inputLarge2" name="route_name" />
+		  </div>
+		<input type="hidden" class="form-control" th:field="*{personId}" id="person_id" name="person_id" />
 	    <button type="submit" class="btn btn-primary">Submit</button>
 	  </fieldset>
 	</form>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>YourTrip</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Yourtrip</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Find routes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Find places</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" style="position: absolute; left: 500px;">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout" class="btn btn-secondary" />
+                </form>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <form th:action="@{/logout}" method="get">
+                    <input type="submit" value="Login" class="btn btn-secondary" />
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="card">
+        <h3 class="card-header"><span th:text="${route.route_name}"></span></h3>
+        <div class="card-body">
+            <div th:switch="${route.category}">
+                <p th:case="'romantic'"><span class="badge badge-pill badge-danger" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                <p th:case="'active'"><span class="badge badge-pill badge-success" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                <p th:case="'family'"><span class="badge badge-pill badge-warning" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                <p th:case="'cognitive'"><span class="badge badge-pill badge-primary" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+            </div>
+            <p class="card-text " style="font-size: 15pt;" th:text="${route.commentary}"></p>
+            <p class="card-text" th:text="${route.mark}"></p>
+        </div>
+        <div class="card-footer text-muted">
+        </div>
+    </div>
+
+</body>
+</html>

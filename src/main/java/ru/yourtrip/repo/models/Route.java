@@ -32,9 +32,15 @@ public class Route implements Serializable {
     @Column(name = "mark", nullable = false)
     private Double mark;
 
+    @Column(name = "lower_price", nullable = false)
+    private Integer lowerPrice;
+
+    @Column(name = "upper_price", nullable = false)
+    private Integer upperPrice;
+
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private Person person_id;
+    private Person personId;
 
 //    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="routeFt")
 //    private Set<Showplace_from_to> showplace_from_tosR;
@@ -44,14 +50,16 @@ public class Route implements Serializable {
 
     public Route() { }
 
-    public Route(String route_name, String commentary, Boolean complete, Boolean hidden, String category, Double mark, Person personR) {
+    public Route(String route_name, String commentary, Boolean complete, Boolean hidden, String category, Double mark, Integer lowerPrice, Integer upperPrice, Person personId) {
         this.route_name = route_name;
         this.commentary = commentary;
         this.complete = complete;
         this.hidden = hidden;
         this.category = category;
         this.mark = mark;
-        this.person_id = personR;
+        this.lowerPrice = lowerPrice;
+        this.upperPrice = upperPrice;
+        this.personId = personId;
     }
 
     @Override
@@ -64,7 +72,9 @@ public class Route implements Serializable {
                 ", hidden=" + hidden +
                 ", category='" + category + '\'' +
                 ", mark=" + mark +
-                ", person_id=" + person_id +
+                ", lowerPrice=" + lowerPrice +
+                ", upperPrice=" + upperPrice +
+                ", personId=" + personId +
                 '}';
     }
 
@@ -124,6 +134,22 @@ public class Route implements Serializable {
         this.mark = mark;
     }
 
+    public Integer getLowerPrice() {
+        return lowerPrice;
+    }
+
+    public void setLowerPrice(Integer lowerPrice) {
+        this.lowerPrice = lowerPrice;
+    }
+
+    public Integer getUpperPrice() {
+        return upperPrice;
+    }
+
+    public void setUpperPrice(Integer upperPrice) {
+        this.upperPrice = upperPrice;
+    }
+
     //    public Set<Showplace_from_to> getShowplace_from_tosR() {
 //        return showplace_from_tosR;
 //    }
@@ -140,12 +166,12 @@ public class Route implements Serializable {
 //        this.route_showplace_listsR = route_showplace_listsR;
 //    }
 
-    public Person getPerson_id() {
-        return person_id;
+    public Person getPersonId() {
+        return personId;
     }
 
-    public void setPerson_id(Person person_id) {
-        this.person_id = person_id;
+    public void setPersonId(Person personId) {
+        this.personId = personId;
     }
 
     @Override

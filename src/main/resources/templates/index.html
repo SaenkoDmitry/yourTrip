@@ -51,7 +51,6 @@
 <!-- <div class="background-image"></div> -->
 
 
-<div class="jumbotron">
     <div sec:authorize="isAuthenticated()">
         <!--<h2>Hello, <span sec:authentication="principal.username" /></h2>-->
         <div class="card">
@@ -62,7 +61,9 @@
             </style>
             <h3 class="card-header">Personal information</h3>
             <div class="card-body personal-info">
-                <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" alt="Card image" />
+                <div th:if="${person.avatar} != 'None'">
+                    <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" th:alt="Card image" />
+                </div>
                 <hr />
                     <h3>
                         Login : <small class="text-muted"><span th:text="${person.login}"></span></small>
@@ -97,6 +98,31 @@
         <form th:action="@{/blog/creatingRoute}" method="get">
             <input type="submit" class="btn btn-primary btn-lg" value="Create new route" />
         </form>
+        <br />
+        <br />
+
+
+        <!--/*@thymesVar id="routes" type="ru.yourtrip.repo.models.Route"*/-->
+        <span th:each="route : ${routes}">
+            <div class="card">
+                <h3 class="card-header"><a th:href="@{'/blog/routes/' + ${route.id}}" style="font-size: 20pt;" th:text="${route.route_name}" method="get"></a></h3>
+                <div class="card-body">
+                    <div th:switch="${route.category}">
+                      <p th:case="'romantic'"><span class="badge badge-pill badge-danger" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                      <p th:case="'active'"><span class="badge badge-pill badge-success" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                      <p th:case="'family'"><span class="badge badge-pill badge-warning" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                      <p th:case="'cognitive'"><span class="badge badge-pill badge-primary" style="font-size: 15pt;" th:text="${route.category}"></span></p>
+                    </div>
+                    <p class="card-text" style="font-size: 15pt;" th:text="${route.commentary}"></p>
+                    <p class="card-text" th:text="${route.mark}"></p>
+                </div>
+                <div class="card-footer text-muted">
+                </div>
+            </div>
+            <br />
+            <br />
+        </span>
+
         <!--/*@thymesVar id="person" type="ru.yourtrip.repo.models.Person"*/-->
     </div>
     <div sec:authorize="isAnonymous()">
@@ -107,7 +133,6 @@
             <input type="submit" class="btn btn-primary btn-lg" value="Find routes now" />
         </form>
     </div>
-</div>
 
 </body>
 
