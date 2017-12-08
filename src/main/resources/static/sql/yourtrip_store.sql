@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS yourtrip;
-CREATE DATABASE yourtrip;
-SET NAMES 'utf8';
-SET CHARACTER SET 'utf8';
+CREATE DATABASE yourtrip
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
 USE yourtrip;
 
 -- tables
@@ -53,7 +53,6 @@ CREATE TABLE IF NOT EXISTS showplace (
     coords varchar(50) NOT NULL,
     avg_mark double NOT NULL,
     num_of_marks int NOT NULL,
-    visit_date date NOT NULL,
     CONSTRAINT Showplace_pk PRIMARY KEY (id),
     CONSTRAINT Showplace_un UNIQUE (showplace_name)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;

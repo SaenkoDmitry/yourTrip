@@ -35,21 +35,21 @@ public class Showplace_from_to implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "showplace_from_id")
-    private Showplace showplaceFt;
+    private Showplace showplaceFrom;
 
     @ManyToOne
     @JoinColumn(name = "showplace_to_id")
-    private Showplace showplaceFt2;
+    private Showplace showplaceTo;
 
     public Showplace_from_to() { }
 
-    public Showplace_from_to(Person personFt, Route routeFt, Time spent_time, Integer distance, Showplace showplaceFt, Showplace showplaceFt2) {
+    public Showplace_from_to(Person personFt, Route routeFt, Time spent_time, Integer distance, Showplace showplaceFrom, Showplace showplaceTo) {
         this.personFt = personFt;
         this.routeFt = routeFt;
         this.spent_time = spent_time;
         this.distance = distance;
-        this.showplaceFt = showplaceFt;
-        this.showplaceFt2 = showplaceFt2;
+        this.showplaceFrom = showplaceFrom;
+        this.showplaceTo = showplaceTo;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class Showplace_from_to implements Serializable {
                 ", routeFt=" + routeFt +
                 ", spent_time=" + spent_time +
                 ", distance=" + distance +
-                ", showplaceFt=" + showplaceFt +
-                ", showplaceFt2=" + showplaceFt2 +
+                ", showplaceFrom=" + showplaceFrom +
+                ", showplaceTo=" + showplaceTo +
                 '}';
     }
 
@@ -105,20 +105,20 @@ public class Showplace_from_to implements Serializable {
         this.distance = distance;
     }
 
-    public Showplace getShowplaceFt() {
-        return showplaceFt;
+    public Showplace getShowplaceFrom() {
+        return showplaceFrom;
     }
 
-    public void setShowplaceFt(Showplace showplaceFt) {
-        this.showplaceFt = showplaceFt;
+    public void setShowplaceFrom(Showplace showplaceFrom) {
+        this.showplaceFrom = showplaceFrom;
     }
 
-    public Showplace getShowplaceFt2() {
-        return showplaceFt2;
+    public Showplace getShowplaceTo() {
+        return showplaceTo;
     }
 
-    public void setShowplaceFt2(Showplace showplaceFt2) {
-        this.showplaceFt2 = showplaceFt2;
+    public void setShowplaceTo(Showplace showplaceTo) {
+        this.showplaceTo = showplaceTo;
     }
 
     @Override

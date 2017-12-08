@@ -7,12 +7,12 @@ public class GoogleDataLoader {
 
     private GoogleDataLoader() { }
 
-    public synchronized static GoogleDataLoader getInstance() {
-        if (instance == null) {
-            instance = new GoogleDataLoader();
-        }
-        return instance;
-    }
+//    public synchronized static GoogleDataLoader getInstance() {
+//        if (instance == null) {
+//            instance = new GoogleDataLoader();
+//        }
+//        return instance;
+//    }
 
     public static String getCoords(String showplaceName) {
         return "";

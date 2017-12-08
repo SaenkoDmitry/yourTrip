@@ -1,7 +1,10 @@
 package ru.yourtrip.repo.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Route_showplace_list implements Serializable {
@@ -11,8 +14,9 @@ public class Route_showplace_list implements Serializable {
     @Column(name = "index_number", nullable = false)
     private Integer index_number;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "visit_date", nullable = false)
-    private Integer visit_date;
+    private Date visit_date;
 
     @Column(name = "showplace_mark", nullable = false)
     private Double showplace_mark;
@@ -61,7 +65,7 @@ public class Route_showplace_list implements Serializable {
 //    }
 
 
-    public Route_showplace_list(PersonRouteShowplaceId id, Integer index_number, Integer visit_date, Double showplace_mark, Person personL, Route routeL, Showplace showplaceL) {
+    public Route_showplace_list(PersonRouteShowplaceId id, Integer index_number, Date visit_date, Double showplace_mark, Person personL, Route routeL, Showplace showplaceL) {
         this.id = id;
         this.index_number = index_number;
         this.visit_date = visit_date;
@@ -93,11 +97,11 @@ public class Route_showplace_list implements Serializable {
         this.id = id;
     }
 
-    public Integer getVisit_date() {
+    public Date getVisit_date() {
         return visit_date;
     }
 
-    public void setVisit_date(Integer visit_date) {
+    public void setVisit_date(Date visit_date) {
         this.visit_date = visit_date;
     }
 

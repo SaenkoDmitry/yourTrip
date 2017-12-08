@@ -23,9 +23,6 @@ public class Showplace implements Serializable {
     @Column(name = "num_of_marks", nullable = false)
     private Integer num_of_marks;
 
-    @Column(name = "visit_date", nullable = false)
-    private Date visit_date;
-
     public Showplace() { }
 
     public Showplace(String showplace_name, String coords, Double avg_mark, Integer num_of_marks, Date visit_date) {
@@ -33,7 +30,6 @@ public class Showplace implements Serializable {
         this.coords = coords;
         this.avg_mark = avg_mark;
         this.num_of_marks = num_of_marks;
-        this.visit_date = visit_date;
     }
 
     @Override
@@ -44,7 +40,6 @@ public class Showplace implements Serializable {
                 ", coords='" + coords + '\'' +
                 ", avg_mark=" + avg_mark +
                 ", num_of_marks=" + num_of_marks +
-                ", visit_date=" + visit_date +
                 '}';
     }
 
@@ -70,14 +65,6 @@ public class Showplace implements Serializable {
 
     public void setCoords(String coords) {
         this.coords = coords;
-    }
-
-    public Date getVisit_date() {
-        return visit_date;
-    }
-
-    public void setVisit_date(Date visit_date) {
-        this.visit_date = visit_date;
     }
 
     public Double getAvg_mark() {

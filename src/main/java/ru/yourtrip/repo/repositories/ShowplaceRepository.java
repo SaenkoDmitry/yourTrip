@@ -6,4 +6,5 @@ import ru.yourtrip.repo.models.Showplace;
 
 @Repository
 public interface ShowplaceRepository extends JpaRepository<Showplace, Long> {
+    Showplace findByShowplace_name(String showplace_name);
 }

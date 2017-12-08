@@ -14,6 +14,8 @@ import java.util.List;
 public interface RouteRepository extends JpaRepository<Route, Long> {
     List<Route> findAllByPersonId(Person personId);
 
+    public Route findByRoute_name(String route_name);
+
 //    @Modifying
 //    @Query("UPDATE route c SET c.route_name = :route_name, " +
 //            "c.commentary = :commentary," +

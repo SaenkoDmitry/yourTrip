@@ -54,36 +54,34 @@
     <div sec:authorize="isAuthenticated()">
         <!--<h2>Hello, <span sec:authentication="principal.username" /></h2>-->
         <div class="card">
-            <style>
+            <!-- <style>
                 .personal-info {
                     text-align: center;
                 }
-            </style>
+            </style> -->
             <h3 class="card-header">Personal information</h3>
             <div class="card-body personal-info">
                 <div th:if="${person.avatar} != 'None'">
-                    <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" th:alt="Card image" />
+                    <!-- <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" th:alt="Card image" /> -->
+                    <img style="height: 350px; max-width: 70%; display: block;" align="left" th:src="${person.avatar}"/>
                 </div>
-                <hr />
-                    <h3>
-                        Login : <small class="text-muted"><span th:text="${person.login}"></span></small>
-                    </h3>
-                <hr />
                 <br />
                     <h3>
-                        Nickname : <small class="text-muted"><span th:text="${person.nickname}"></span></small>
+                        <p style="text-align: center; position: relative; padding-left: 20px;">Login : &emsp;&emsp;<small class="text-muted" th:text="${person.login}" style="font-size: 20pt; text-align: center;"></small></p>
                     </h3>
-                <hr />
                 <br />
                     <h3>
-                        Email : <small class="text-muted"><span th:text="${person.mail}"></span></small>
+                        <p style="text-align: center; padding-left: 20px;">Nickname : &emsp;<small class="text-muted" th:text="${person.nickname}" style="font-size: 20pt; text-align: center;"></small></p>
                     </h3>
-                <hr />
                 <br />
                     <h3>
-                        Birthday : <small class="text-muted"><span th:text="${person.birthday}"></span></small>
+                        <p style="text-align: center; padding-left: 20px;">Email : &emsp;&emsp;<small class="text-muted" th:text="${person.mail}" style="font-size: 20pt; text-align: center;"></small></p>
                     </h3>
-                <hr />
+                <br />
+                    <h3>
+                        <p style="text-align: center; padding-left: 20px;">Birthday : &emsp;<small class="text-muted" th:text="${person.birthday}" style="font-size: 20pt; text-align: center;"></small></p>
+                    </h3>
+                <br />
             </div>
             <!--<div class="card-body">-->
                 <!--<a href="#" class="card-link">Edit info</a>-->

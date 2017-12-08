@@ -57,6 +57,12 @@
             <p class="card-text" th:text="${route.mark}"></p>
         </div>
         <div class="card-footer text-muted">
+        	<div th:if="${route.complete} == true">
+        		<p style="font-size: 15pt;">&#9745; Маршрут завершен</p>
+        	</div>
+        	<div th:if="${route.complete} == false">
+        		<p style="font-size: 15pt;">&#8987; Маршрут выполняется</p>
+        	</div>
         </div>
     </div>
 
