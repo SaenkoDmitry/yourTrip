@@ -14,13 +14,13 @@ public class Image implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "route_id")
-    private Route routeI;
+    private Route routeId;
 
     public Image() { }
 
-    public Image(String url, Route routeI) {
+    public Image(String url, Route routeId) {
         this.url = url;
-        this.routeI = routeI;
+        this.routeId = routeId;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class Image implements Serializable {
         return "Image{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", routeI=" + routeI +
+                ", routeId=" + routeId +
                 '}';
     }
 
@@ -48,11 +48,11 @@ public class Image implements Serializable {
         this.url = url;
     }
 
-    public Route getRouteI() {
-        return routeI;
+    public Route getRouteId() {
+        return routeId;
     }
 
-    public void setRouteI(Route routeI) {
-        this.routeI = routeI;
+    public void setRouteId(Route routeId) {
+        this.routeId = routeId;
     }
 }

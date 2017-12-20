@@ -1,12 +1,7 @@
 package ru.yourtrip.repo.models;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 public class Route implements Serializable {
@@ -15,7 +10,7 @@ public class Route implements Serializable {
     private Long id;
 
     @Column(name = "route_name", unique = true, nullable = false, length = 100)
-    private String route_name;
+    private String routeName;
 
     @Column(name = "commentary", length = 1000)
     private String commentary;
@@ -50,8 +45,8 @@ public class Route implements Serializable {
 
     public Route() { }
 
-    public Route(String route_name, String commentary, Boolean complete, Boolean hidden, String category, Double mark, Integer lowerPrice, Integer upperPrice, Person personId) {
-        this.route_name = route_name;
+    public Route(String routeName, String commentary, Boolean complete, Boolean hidden, String category, Double mark, Integer lowerPrice, Integer upperPrice, Person personId) {
+        this.routeName = routeName;
         this.commentary = commentary;
         this.complete = complete;
         this.hidden = hidden;
@@ -66,7 +61,7 @@ public class Route implements Serializable {
     public String toString() {
         return "Route{" +
                 "id=" + id +
-                ", route_name='" + route_name + '\'' +
+                ", routeName='" + routeName + '\'' +
                 ", commentary='" + commentary + '\'' +
                 ", complete=" + complete +
                 ", hidden=" + hidden +
@@ -86,12 +81,12 @@ public class Route implements Serializable {
         this.id = id;
     }
 
-    public String getRoute_name() {
-        return route_name;
+    public String getRouteName() {
+        return routeName;
     }
 
-    public void setRoute_name(String route_name) {
-        this.route_name = route_name;
+    public void setRouteName(String route_name) {
+        this.routeName = route_name;
     }
 
     public String getCommentary() {
@@ -182,13 +177,13 @@ public class Route implements Serializable {
         Route route = (Route) o;
 
         if (getId() != null ? !getId().equals(route.getId()) : route.getId() != null) return false;
-        return getRoute_name() != null ? getRoute_name().equals(route.getRoute_name()) : route.getRoute_name() == null;
+        return getRouteName() != null ? getRouteName().equals(route.getRouteName()) : route.getRouteName() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getRoute_name() != null ? getRoute_name().hashCode() : 0);
+        result = 31 * result + (getRouteName() != null ? getRouteName().hashCode() : 0);
         return result;
     }
 }

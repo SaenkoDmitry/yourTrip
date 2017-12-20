@@ -1,12 +1,12 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="http://dev.axisj.com/dist/AXJ.min.js"></script>
 </head>
 
 <body>
-<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Yourtrip</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
@@ -29,10 +29,6 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" style="position: absolute; left: 500px;">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
         <div sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout" class="btn btn-secondary"><!--Logout, <span sec:authentication="principal.username" />--></input>
@@ -46,62 +42,68 @@
 <div class="card">
 	<h3 class="card-header">Creating new route</h3>
 	<div class="card-body">
+		<!--/*@thymesVar id="route" type="ru.yourtrip.repo.models.RouteWithShwpls"*/-->
 		<!--/*@thymesVar id="route" type="ru.yourtrip.repo.models.Route"*/-->
-	<form th:action="@{/blog/creatingRoute}" th:object="${route}" method="post">
+	<form th:action="@{/blog/routes/create}" th:object="${routeWithShwpls}" method="post">
 	  <fieldset>
-	    <!-- <legend>Creating new route</legend> -->
-	    <div class="form-group">
-	        <label class="col-form-label col-form-label-lg" for="inputLarge">Route name</label>
-	        <input class="form-control form-control-lg" type="text" th:field="*{route_name}" id="inputLarge" name="route_name" />
-	    </div>
-	    <div class="form-group">
-	      <label for="exampleTextarea">Description</label>
-	      <textarea class="form-control" id="exampleTextarea" rows="5" th:field="*{commentary}" name="commentary"></textarea>
-	    </div>
-	    <div class="form-check">
-	      <label class="form-check-label">
-	        <input type="checkbox" class="form-check-input" th:field="*{complete}" name="complete" />
-	        Route was completed
-	      </label>
-	    </div>
-	    <div class="form-check">
-	      <label class="form-check-label">
-	        <input type="checkbox" class="form-check-input" th:field="*{hidden}" name="hidden" />
-	        Route will be show other users
-	      </label>
-	    </div>
-	    <div class="form-group">
-	      <label for="select1">Category</label>
-	      <select class="form-control" id="select1" th:field="*{category}" name="category">
-	        <option value="family">family</option>
-	        <option value="active">active</option>
-	        <option value="romantic">romantic</option>
-	        <option value="cognitive">cognitive</option>
-	      </select>
-	    </div>
-	    <div class="form-group">
-	      <label for="select2">Mark</label>
-	      <select class="form-control" id="select2" th:field="*{mark}" name="mark">
-	        <option value="1.0">1 - Fail</option>
-        	<option value="2.0">2 - Enough</option>
-        	<option value="3.0">3 - Creditable</option>
-        	<option value="4.0">4 - Brilliant</option>
-        	<option value="5.0">5 - Supreme</option>
-	      </select>
-	    </div>
-		<div class="form-group">
-			<label class="col-form-label col-form-label-lg" for="inputLarge1">Lower price</label>
-			<input class="form-control form-control-lg" type="text" th:field="*{lowerPrice}" id="inputLarge1" name="route_name" />
-		</div>
-		  <div class="form-group">
-			  <label class="col-form-label col-form-label-lg" for="inputLarge2">Upper price</label>
-			  <input class="form-control form-control-lg" type="text" th:field="*{upperPrice}" id="inputLarge2" name="route_name" />
-		  </div>
-		<input type="hidden" class="form-control" th:field="*{personId}" id="person_id" name="person_id" />
+			<div class="form-group">
+				<label class="col-form-label col-form-label-lg" for="inputLarge">Route name</label>
+				<input class="form-control form-control-lg" type="text" th:field="*{route.routeName}" id="inputLarge" name="routeName" />
+			</div>
+			<div class="form-group">
+			  <label for="exampleTextarea">Description</label>
+			  <textarea class="form-control" id="exampleTextarea" rows="5" th:field="*{route.commentary}" name="commentary"></textarea>
+			</div>
+			<div class="form-check">
+			  <label class="form-check-label">
+				<input type="checkbox" class="form-check-input" th:field="*{route.complete}" name="complete" />
+				Route was completed
+			  </label>
+			</div>
+			<div class="form-check">
+			  <label class="form-check-label">
+				<input type="checkbox" class="form-check-input" th:field="*{route.hidden}" name="hidden" />
+				Route will be show other users
+			  </label>
+			</div>
+			<div class="form-group">
+			  <label for="select1">Category</label>
+			  <select class="form-control" id="select1" th:field="*{route.category}" name="category">
+				<option value="family">family</option>
+				<option value="active">active</option>
+				<option value="romantic">romantic</option>
+				<option value="cognitive">cognitive</option>
+			  </select>
+			</div>
+			<div class="form-group">
+			  <label for="select2">Mark</label>
+			  <select class="form-control" id="select2" th:field="*{route.mark}" name="mark">
+				<option value="1.0">1 - Fail</option>
+				<option value="2.0">2 - Enough</option>
+				<option value="3.0">3 - Creditable</option>
+				<option value="4.0">4 - Brilliant</option>
+				<option value="5.0">5 - Supreme</option>
+			  </select>
+			</div>
+			<div class="form-group">
+				<label class="col-form-label col-form-label-lg" for="inputLarge1">Lower price</label>
+				<input class="form-control form-control-lg" type="text" th:field="*{route.lowerPrice}" id="inputLarge1" name="lowerPrice" />
+			</div>
+			  <div class="form-group">
+				  <label class="col-form-label col-form-label-lg" for="inputLarge2">Upper price</label>
+				  <input class="form-control form-control-lg" type="text" th:field="*{route.upperPrice}" id="inputLarge2" name="upperPrice" />
+			  </div>
+			<input type="hidden" class="form-control" th:field="*{route.personId}" id="person_id" name="personId" />
 	    <button type="submit" class="btn btn-primary">Submit</button>
+		  <!--<span th:each="route : ${routes}">-->
+		  <!--</span>-->
 	  </fieldset>
 	</form>
-</div>
+
+
+	</div>
+
+
 </div>
 
 </body>

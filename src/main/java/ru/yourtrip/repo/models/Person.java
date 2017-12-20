@@ -24,6 +24,9 @@ public class Person implements Serializable {
     @Column(name = "avatar", unique = true, nullable = false, length = 200)
     private String avatar;
 
+    @Column(name = "gender", length = 6)
+    private String gender;
+
     @Column(name = "hash", nullable = false, length = 100)
     private String hash;
 
@@ -48,10 +51,11 @@ public class Person implements Serializable {
 
     public Person() { }
 
-    public Person(String login, String nickname, String avatar, String hash, String mail, Date birthday, String role, Boolean hidden_nickname, Boolean hidden_mail, Boolean hidden_birthday) {
+    public Person(String login, String nickname, String avatar, String gender, String hash, String mail, Date birthday, String role, Boolean hidden_nickname, Boolean hidden_mail, Boolean hidden_birthday) {
         this.login = login;
         this.nickname = nickname;
         this.avatar = avatar;
+        this.gender = gender;
         this.hash = hash;
         this.mail = mail;
         this.birthday = birthday;
@@ -149,6 +153,14 @@ public class Person implements Serializable {
         this.hidden_birthday = hidden_birthday;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -156,6 +168,7 @@ public class Person implements Serializable {
                 ", login='" + login + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", gender='" + gender + '\'' +
                 ", hash='" + hash + '\'' +
                 ", mail='" + mail + '\'' +
                 ", birthday=" + birthday +

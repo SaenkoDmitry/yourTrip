@@ -13,7 +13,8 @@ import ru.yourtrip.repo.models.*;
 import ru.yourtrip.repo.repositories.*;
 import ru.yourtrip.repo.utils.GoogleDataLoader;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,9 @@ public class BlogController {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     @GetMapping(value="/routes/{id}/edit")
     public ModelAndView editRoutePage(@PathVariable(value="id") Long id) {
         ModelAndView modelAndView = new ModelAndView("editroute");
@@ -60,18 +64,18 @@ public class BlogController {
                 if (person != null && route != null && person.getId().equals(route.getPersonId().getId())) {
                     updatedRoute.setId(route.getId());
                     routeRepository.save(updatedRoute);
-                    modelAndView = new ModelAndView("redirect:/routes/{" + updatedRoute.getId() + "}");
+                    modelAndView = new ModelAndView("redirect:blog/routes/{" + updatedRoute.getId() + "}");
                     modelAndView.setStatus(HttpStatus.OK);
                 } else {
                     throw new RuntimeException();
                 }
             } catch(RuntimeException ex) {
                 System.out.println(ex);
-                modelAndView = new ModelAndView("redirect:/routes/{id}/edit");
+                modelAndView = new ModelAndView("redirect:routes/{id}/edit");
                 modelAndView.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
-            modelAndView = new ModelAndView("redirect:/");
+            modelAndView = new ModelAndView("redirect:");
             modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
         }
         return modelAndView;
@@ -81,86 +85,101 @@ public class BlogController {
     public ModelAndView showRoutePage() {
         ModelAndView modelAndView = new ModelAndView("createroute");
         Route route = new Route();
+        List<Showplace_person> showplaces = new ArrayList<>();
+        RouteWithShwpls routeWithShwpls = new RouteWithShwpls(route, showplaces);
+        modelAndView.addObject("routeWithShwpls", routeWithShwpls);
+        String imageUrl = route.getRouteName();
         modelAndView.addObject("route", route);
+        return modelAndView;
+    }
+
+    @GetMapping(value="/routes/create/{id}/add-images")
+    public ModelAndView addImageToRoute(@PathVariable(value="id") Long id) {
+        ModelAndView modelAndView = new ModelAndView("addimagetoroute");
+        Route route = routeRepository.findOne(id);
+        modelAndView.addObject("route", route);
+        modelAndView.setStatus(HttpStatus.OK);
         return modelAndView;
     }
 
     @PostMapping(value="/routes/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ModelAndView createRoute(@ModelAttribute Route route, @ModelAttribute List<Showplace_person> showplaces) {
+    public ModelAndView createRoute(@ModelAttribute RouteWithShwpls routeWithShwpls) {
         ModelAndView modelAndView;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth.getPrincipal()).equals("anonymousUser")) {
             String login = ((User)auth.getPrincipal()).getUsername();
             Person person = personRepository.findByLogin(login);
+            Route route = routeWithShwpls.getRoute();
+            List <Showplace_person> showplaces = routeWithShwpls.getShowplaces();
             if (person != null) {
                 route.setPersonId(personRepository.findByLogin(login));
                 try {
                     routeRepository.save(route);
                     // ------------------- add info about showplaces
-                    Route routeFromDb = routeRepository.findByRoute_name(route.getRoute_name());
+                    Route routeFromDb = routeRepository.findByRouteName(route.getRouteName());
                     if (routeFromDb != null) {
                         // --------------------- add to showplace table
-                        for (int i = 0; i < showplaces.size(); i++) {
-                            Showplace currShowplace = new Showplace();
-                            currShowplace.setShowplace_name(showplaces.get(i).getShowplace_name());
-
-                            Showplace oldShowplace = showplaceRepository.findByShowplace_name(currShowplace.getShowplace_name());
-                            if (oldShowplace == null) {
-                                currShowplace.setCoords(GoogleDataLoader.getCoords(currShowplace.getShowplace_name()));
-                                currShowplace.setNum_of_marks(1);
-                                showplaceRepository.save(currShowplace);
-                            } else {
-                                oldShowplace.setNum_of_marks(oldShowplace.getNum_of_marks() + 1);
-                                oldShowplace.setAvg_mark((oldShowplace.getAvg_mark() + showplaces.get(i).getMark()) / oldShowplace.getNum_of_marks());
-                            }
-
-                        }
-                        // ----------------------------------------------
-                        for (int i = 0; i < showplaces.size(); i++) {
-                            // add to route_showplace_list table
-                            Showplace fromShowplace = showplaceRepository.findByShowplace_name(showplaces.get(i).getShowplace_name());
-                            Route_showplace_list route_showplace_list = new Route_showplace_list();
-                            route_showplace_list.setIndex_number(i);
-                            route_showplace_list.setPersonL(person);
-                            route_showplace_list.setRouteL(routeFromDb);
-                            route_showplace_list.setShowplaceL(fromShowplace);
-                            route_showplace_list.setShowplace_mark(showplaces.get(i).getMark()); // that's mean actually showplaces.get(i)
-                            route_showplace_list.setVisit_date(showplaces.get(i).getVisit_date());
-                            route_showplace_listRepository.save(route_showplace_list);
-                            if (i == showplaces.size() - 1) continue;
-
-                            // add to showplace_from_to table
-                            Showplace toShowplace = showplaceRepository.findByShowplace_name(showplaces.get(i + 1).getShowplace_name());
-                            Showplace_from_to showplace_from_to = new Showplace_from_to();
-                            showplace_from_to.setPersonFt(person);
-                            showplace_from_to.setRouteFt(routeFromDb);
-                            showplace_from_to.setDistance(GoogleDataLoader.getDistance(fromShowplace.getShowplace_name(),
-                                    toShowplace.getShowplace_name()));
-                            showplace_from_to.setSpent_time(GoogleDataLoader.getSpentTime(fromShowplace.getShowplace_name(),
-                                    toShowplace.getShowplace_name()));
-                            showplace_from_to.setShowplaceFrom(fromShowplace);
-                            showplace_from_to.setShowplaceTo(toShowplace);
-                            showplace_from_toRepository.save(showplace_from_to);
-
-                        }
+//                        for (int i = 0; i < showplaces.size(); i++) {
+//                            Showplace currShowplace = new Showplace();
+//                            currShowplace.setShowplaceName(showplaces.get(i).getShowplace_name());
+//
+//                            Showplace oldShowplace = showplaceRepository.findByShowplaceName(currShowplace.getShowplaceName());
+//                            if (oldShowplace == null) {
+//                                currShowplace.setCoords(GoogleDataLoader.getCoords(currShowplace.getShowplaceName()));
+//                                currShowplace.setNum_of_marks(1);
+//                                showplaceRepository.save(currShowplace);
+//                            } else {
+//                                oldShowplace.setNum_of_marks(oldShowplace.getNum_of_marks() + 1);
+//                                oldShowplace.setAvg_mark((oldShowplace.getAvg_mark() + showplaces.get(i).getMark()) / oldShowplace.getNum_of_marks());
+//                            }
+//
+//                        }
+//                        // ----------------------------------------------
+//                        for (int i = 0; i < showplaces.size(); i++) {
+//                            // add to route_showplace_list table
+//                            Showplace fromShowplace = showplaceRepository.findByShowplaceName(showplaces.get(i).getShowplace_name());
+//                            Route_showplace_list route_showplace_list = new Route_showplace_list();
+//                            route_showplace_list.setIndex_number(i);
+//                            route_showplace_list.setPersonL(person);
+//                            route_showplace_list.setRouteL(routeFromDb);
+//                            route_showplace_list.setShowplaceL(fromShowplace);
+//                            route_showplace_list.setShowplace_mark(showplaces.get(i).getMark()); // that's mean actually showplaces.get(i)
+//                            route_showplace_list.setVisit_date(showplaces.get(i).getVisit_date());
+//                            route_showplace_listRepository.save(route_showplace_list);
+//                            if (i == showplaces.size() - 1) continue;
+//
+//                            // add to showplace_from_to table
+//                            Showplace toShowplace = showplaceRepository.findByShowplaceName(showplaces.get(i + 1).getShowplace_name());
+//                            Showplace_from_to showplace_from_to = new Showplace_from_to();
+//                            showplace_from_to.setPersonFt(person);
+//                            showplace_from_to.setRouteFt(routeFromDb);
+//                            showplace_from_to.setDistance(GoogleDataLoader.getDistance(fromShowplace.getShowplaceName(),
+//                                    toShowplace.getShowplaceName()));
+//                            showplace_from_to.setSpent_time(GoogleDataLoader.getSpentTime(fromShowplace.getShowplaceName(),
+//                                    toShowplace.getShowplaceName()));
+//                            showplace_from_to.setShowplaceFrom(fromShowplace);
+//                            showplace_from_to.setShowplaceTo(toShowplace);
+//                            showplace_from_toRepository.save(showplace_from_to);
+//
+//                        }
                     } else {
                         // Something goes wrong
                     }
                     // --------------------
-                    modelAndView = new ModelAndView("redirect:/routes/{" + route.getId() + "}");
+                    modelAndView = new ModelAndView("redirect:/blog/routes/create/" + routeFromDb.getId()  + "/add-images");
                     modelAndView.setStatus(HttpStatus.OK);
                 } catch (RuntimeException ex) {
                     System.out.println(ex);
-                    modelAndView = new ModelAndView("redirect:/routes/create");
+                    modelAndView = new ModelAndView("redirect:");
                     modelAndView.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             } else {
-                modelAndView = new ModelAndView("redirect:/routes/create");
+                modelAndView = new ModelAndView("redirect:");
                 modelAndView.setStatus(HttpStatus.BAD_REQUEST);
             }
         } else {
-            modelAndView = new ModelAndView("redirect:/");
+            modelAndView = new ModelAndView("redirect:");
             modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
         }
         return modelAndView;
@@ -171,6 +190,8 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView("route");
         Route route = routeRepository.findOne(id);
         modelAndView.addObject("route", route);
+        ArrayList<Image> imgUrls = imageRepository.findByRouteId(route);
+        modelAndView.addObject("imgUrls", imgUrls);
         modelAndView.setStatus(HttpStatus.OK);
         return modelAndView;
     }
@@ -253,4 +274,16 @@ public class BlogController {
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping(value="/search")
+    public ModelAndView search() {
+        ModelAndView modelAndView = new ModelAndView("searcher");
+        return modelAndView;
+    }
+
+//    @PostMapping(value="/image", headers = "Accept=image/jpeg, image/jpg, image/png, image/gif", produces = "image/jpg")
+//    public ResponseBody getImage() {
+//        ModelAndView modelAndView = new ModelAndView("image");
+//        return modelAndView;
+//    }
 }

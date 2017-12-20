@@ -3,7 +3,6 @@ package ru.yourtrip.repo.models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 public class Showplace implements Serializable {
@@ -12,7 +11,7 @@ public class Showplace implements Serializable {
     private Long id;
 
     @Column(name = "showplace_name", unique = true, nullable = false, length = 100)
-    private String showplace_name;
+    private String showplaceName;
 
     @Column(name = "coords", nullable = false, length = 50)
     private String coords;
@@ -26,7 +25,7 @@ public class Showplace implements Serializable {
     public Showplace() { }
 
     public Showplace(String showplace_name, String coords, Double avg_mark, Integer num_of_marks, Date visit_date) {
-        this.showplace_name = showplace_name;
+        this.showplaceName = showplace_name;
         this.coords = coords;
         this.avg_mark = avg_mark;
         this.num_of_marks = num_of_marks;
@@ -36,7 +35,7 @@ public class Showplace implements Serializable {
     public String toString() {
         return "Showplace{" +
                 "id=" + id +
-                ", showplace_name='" + showplace_name + '\'' +
+                ", showplaceName='" + showplaceName + '\'' +
                 ", coords='" + coords + '\'' +
                 ", avg_mark=" + avg_mark +
                 ", num_of_marks=" + num_of_marks +
@@ -51,12 +50,12 @@ public class Showplace implements Serializable {
         this.id = id;
     }
 
-    public String getShowplace_name() {
-        return showplace_name;
+    public String getShowplaceName() {
+        return showplaceName;
     }
 
-    public void setShowplace_name(String showplace_name) {
-        this.showplace_name = showplace_name;
+    public void setShowplaceName(String showplace_name) {
+        this.showplaceName = showplace_name;
     }
 
     public String getCoords() {
@@ -91,7 +90,7 @@ public class Showplace implements Serializable {
         Showplace showplace = (Showplace) o;
 
         if (getId() != null ? !getId().equals(showplace.getId()) : showplace.getId() != null) return false;
-        if (getShowplace_name() != null ? !getShowplace_name().equals(showplace.getShowplace_name()) : showplace.getShowplace_name() != null)
+        if (getShowplaceName() != null ? !getShowplaceName().equals(showplace.getShowplaceName()) : showplace.getShowplaceName() != null)
             return false;
         return getCoords() != null ? getCoords().equals(showplace.getCoords()) : showplace.getCoords() == null;
     }
@@ -99,7 +98,7 @@ public class Showplace implements Serializable {
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getShowplace_name() != null ? getShowplace_name().hashCode() : 0);
+        result = 31 * result + (getShowplaceName() != null ? getShowplaceName().hashCode() : 0);
         result = 31 * result + (getCoords() != null ? getCoords().hashCode() : 0);
         return result;
     }

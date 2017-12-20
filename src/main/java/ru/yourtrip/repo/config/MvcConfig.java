@@ -1,19 +1,39 @@
 package ru.yourtrip.repo.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
+@EnableWebSecurity
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/auth/sign-up").setViewName("login");
-        registry.addViewController("/blog/create-route").setViewName("createroute");
+        registry.addViewController("/blog/routes/create").setViewName("createroute");
         registry.addViewController("/search/routes").setViewName("routesfinder");
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/blog/routes/{id}").setViewName("route");
+        registry.addViewController("/search").setViewName("index5");
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(
+                "/webjars/**",
+                "/img/**",
+                "/css/**",
+                "/js/**")
+                .addResourceLocations(
+                        "classpath:/META-INF/resources/webjars/",
+                        "classpath:/static/img/",
+                        "classpath:/static/css/",
+                        "classpath:/static/js/");
+    }
+
 }

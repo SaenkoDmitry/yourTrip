@@ -1,0 +1,52 @@
+<!DOCTYPE html5>
+<html>
+<head>
+    <script type="text/javascript" src="../core/jquery.1.10.2.min.js"></script>
+    <script type="text/javascript" src="../core/jquery.autocomplete.min.js"></script>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <link rel="stylesheet" href="../core/main.css" />
+</head>
+<body>
+<h2>Spring MVC + jQuery + Autocomplete example</h2>
+
+<div>
+    <input type="text"  id="w-input-search" value="" />
+    <span>
+	  <button id="button-id" type="button"><p class="test">Search</p></button>
+	</span>
+
+    <div class="autocomplete-suggestions">
+        <div class="autocomplete-suggestion autocomplete-selected"></div>
+        <div class="autocomplete-suggestion"></div>
+        <div class="autocomplete-suggestion"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('#w-input-search').autocomplete({
+            serviceUrl: "/blog/getTags",
+            paramName: "tagName",
+            delimiter: ",",
+            transformResult: function(response) {
+
+                return {
+                    //must convert json to javascript object before process
+                    suggestions: $.map($.parseJSON(response), function(item) {
+
+                        return { value: item.tagName, data: item.id };
+                    })
+
+                };
+
+            }
+
+        });
+
+    });
+</script>
+
+</body>
+</html>

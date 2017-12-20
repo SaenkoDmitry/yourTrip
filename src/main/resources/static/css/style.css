@@ -1,0 +1,30 @@
+* {
+    /*font-family: 'Shadows Into Light', cursive;*/
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.round {
+    -moz-border-radius: 100px; /* Firefox */
+    -webkit-border-radius: 100px; /* Safari, Chrome */
+    -khtml-border-radius: 100px; /* KHTML */
+    border-radius: 100px; /* CSS3 */
+}
+
+.personal {
+    -moz-border-radius: 20px; /* Firefox */
+    -webkit-border-radius: 20px; /* Safari, Chrome */
+    -khtml-border-radius: 20px; /* KHTML */
+    border-radius: 20px; /* CSS3 */
+    font-weight: bold;
+    width: 650px;
+    height: 200px;
+    font-size: 22pt;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -100px 0 0 -200px;
+}
+
+.personal-info {
+    background-color: #dddddd;
+}

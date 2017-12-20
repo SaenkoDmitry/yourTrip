@@ -1,5 +1,6 @@
 package ru.yourtrip.repo.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +15,9 @@ import static java.util.Collections.emptyList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    private PersonRepository personRepository;
 
-    public UserDetailsServiceImpl(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    @Autowired
+    private PersonRepository personRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

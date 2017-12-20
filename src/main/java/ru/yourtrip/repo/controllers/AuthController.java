@@ -29,7 +29,11 @@ public class AuthController {
 
         person.setHash(bCryptPasswordEncoder.encode(person.getHash()));
         person.setRole("normal");
-        person.setAvatar("None");
+        if (person.getGender().equals("male")) {
+            person.setAvatar("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Creative-Tail-People-gentleman.svg/768px-Creative-Tail-People-gentleman.svg.png");
+        } else if (person.getGender().equals("female")) {
+            person.setAvatar("https://icon-icons.com/icons2/582/PNG/512/woman_icon-icons.com_55031.png");
+        }
         person.setHidden_nickname(true);
         person.setHidden_mail(true);
         person.setHidden_birthday(true);

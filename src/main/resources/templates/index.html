@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
 
->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Rajdhani|Shadows+Into+Light" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
 <body>
-<link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css"/>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Yourtrip</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
@@ -32,18 +32,14 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" style="position: absolute; left: 500px;">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search"/>
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
         <div sec:authorize="isAuthenticated()">
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout" class="btn btn-secondary" />
+                <input type="submit" value="LOGOUT" class="btn btn-secondary" />
             </form>
         </div>
         <div sec:authorize="isAnonymous()">
             <form th:action="@{/logout}" method="get">
-                <input type="submit" value="Login" class="btn btn-secondary" />
+                <input type="submit" value="SIGN IN/SIGN UP" class="btn btn-secondary" />
             </form>
         </div>
     </div>
@@ -51,59 +47,54 @@
 <!-- <div class="background-image"></div> -->
 
 
-    <div sec:authorize="isAuthenticated()">
-        <!--<h2>Hello, <span sec:authentication="principal.username" /></h2>-->
-        <div class="card">
-            <!-- <style>
-                .personal-info {
-                    text-align: center;
-                }
-            </style> -->
-            <h3 class="card-header">Personal information</h3>
-            <div class="card-body personal-info">
-                <div th:if="${person.avatar} != 'None'">
-                    <!-- <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" th:alt="Card image" /> -->
-                    <img style="height: 350px; max-width: 70%; display: block;" align="left" th:src="${person.avatar}"/>
-                </div>
-                <br />
-                    <h3>
-                        <p style="text-align: center; position: relative; padding-left: 20px;">Login : &emsp;&emsp;<small class="text-muted" th:text="${person.login}" style="font-size: 20pt; text-align: center;"></small></p>
-                    </h3>
-                <br />
-                    <h3>
-                        <p style="text-align: center; padding-left: 20px;">Nickname : &emsp;<small class="text-muted" th:text="${person.nickname}" style="font-size: 20pt; text-align: center;"></small></p>
-                    </h3>
-                <br />
-                    <h3>
-                        <p style="text-align: center; padding-left: 20px;">Email : &emsp;&emsp;<small class="text-muted" th:text="${person.mail}" style="font-size: 20pt; text-align: center;"></small></p>
-                    </h3>
-                <br />
-                    <h3>
-                        <p style="text-align: center; padding-left: 20px;">Birthday : &emsp;<small class="text-muted" th:text="${person.birthday}" style="font-size: 20pt; text-align: center;"></small></p>
-                    </h3>
-                <br />
+<div sec:authorize="isAuthenticated()">
+    <!--<h2>Hello, <span sec:authentication="principal.username" /></h2>-->
+    <div class="card" style="height: 400px;">
+        <!-- <style>
+            .personal-info {
+                text-align: center;
+            }
+        </style> -->
+        <div class="card-body personal-info">
+            <h2>Personal information</h2>
+            <div th:if="${person.avatar} != 'None'">
+                <!-- <img style="height: 300px; max-width: 70%; text-align: center; margin: 0 auto; display: block;" th:src="${person.avatar}" th:alt="Card image" /> -->
+                <img style="height: 250px; width: 250px; display: block; border-radius: 250px;" class="round" align="left" th:src="${person.avatar}"/>
             </div>
-            <!--<div class="card-body">-->
-                <!--<a href="#" class="card-link">Edit info</a>-->
-            <!--</div>-->
-            <div class="card-footer text-muted">
-                <a href="#" class="card-link">Edit info</a>
+            <div class="personal">
+                <h3>
+                    <p style="padding-left: 20px;">Login : &emsp;&emsp;<small class="text-muted" th:text="${person.login}" style="font-size: 20pt; text-align: center;"></small></p>
+                </h3>
+                <h3>
+                    <p style="padding-left: 20px;">Nickname : &emsp;<small class="text-muted" th:text="${person.nickname}" style="font-size: 20pt; text-align: center;"></small></p>
+                </h3>
+                <h3>
+                    <p style="padding-left: 20px;">Email : &emsp;&emsp;<small class="text-muted" th:text="${person.mail}" style="font-size: 20pt; text-align: center;"></small></p>
+                </h3>
+                <h3>
+                    <p style="padding-left: 20px;">Birthday : &emsp;<small class="text-muted" th:text="${#dates.format(person.birthday, 'yyyy-MM-dd')}" style="font-size: 20pt; text-align: center;"></small></p>
+                </h3>
             </div>
+            <form style="margin-top: 280px;" th:action="@{/blog/routes/create}" method="get">
+                <input type="submit" class="btn btn-primary btn-lg" value="Create new route" />
+            </form>
         </div>
-        <br />
-        <br />
-        <!--<p><a class="btn btn-primary btn-lg" onclick="creatingRoute(username)">Create new route</a></p>-->
-        <form th:action="@{/blog/creatingRoute}" method="get">
-            <input type="submit" class="btn btn-primary btn-lg" value="Create new route" />
-        </form>
-        <br />
-        <br />
+        <div class="card-footer text-muted">
+            <!--th:action="@{'/routes/' + ${person.id} + '/edit'}"-->
+            <a href="#" class="card-link">Edit info</a>
+        </div>
+    </div>
+    <br />
+    <br />
+    <!--<p><a class="btn btn-primary btn-lg" onclick="creatingRoute(username)">Create new route</a></p>-->
+    <br />
+    <br />
 
 
-        <!--/*@thymesVar id="routes" type="ru.yourtrip.repo.models.Route"*/-->
-        <span th:each="route : ${routes}">
+    <!--/*@thymesVar id="routes" type="ru.yourtrip.repo.models.Route"*/-->
+    <span th:each="route : ${routes}">
             <div class="card">
-                <h3 class="card-header"><a th:href="@{'/blog/routes/' + ${route.id}}" style="font-size: 20pt;" th:text="${route.route_name}" method="get"></a></h3>
+                <h3 class="card-header"><a th:href="@{'/blog/routes/' + ${route.id}}" style="font-size: 20pt;" th:text="${route.routeName}" method="get"></a></h3>
                 <div class="card-body">
                     <div th:switch="${route.category}">
                       <p th:case="'romantic'"><span class="badge badge-pill badge-danger" style="font-size: 15pt;" th:text="${route.category}"></span></p>
@@ -121,37 +112,51 @@
             <br />
         </span>
 
-        <!--/*@thymesVar id="person" type="ru.yourtrip.repo.models.Person"*/-->
-    </div>
-    <div sec:authorize="isAnonymous()">
-        <h1 class="display-3">YourTrip</h1>
-        <p>This site intented by help you share different routes, which you make yourself</p>
-        <!--<p><a class="btn btn-primary btn-lg" href="#">Find routes now</a></p>-->
+    <!--/*@thymesVar id="person" type="ru.yourtrip.repo.models.Person"*/-->
+</div>
+<div sec:authorize="isAnonymous()">
+    <style>
+        .background-image {
+            position: fixed;
+            background-image: url("https://yastatic.net/s3/bro-bg-store/93363a30-5d1d-434e-ad46-3d6351a3de69.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            /*-webkit-filter: blur(10px);*/
+            /*-moz-filter: blur(5px);*/
+            /*filter: blur(5px);*/
+        }
+    </style>
+    <div class="background-image"></div>
+    <div style="width:250px; height: 100px; position:absolute; left:50%; top:50%; margin:-100px 0 0 -150px;">
         <form th:action="@{/search/routes}" method="get">
-            <input type="submit" class="btn btn-primary btn-lg" value="Find routes now" />
+            <input style="width:250px; height: 100px; font-size: 23pt; background-color: black;" type="submit" class="btn btn-primary btn-lg" value="Find routes now" />
         </form>
     </div>
+</div>
 
 </body>
 
 </html>
 
 <script>
-        function creatingRoute(obj) {
-            console.log(obj);
-            var credentialsJson = '{'
-                + '"username" : "' + 1
-                + '}';
-            var settings = {
-                type: "POST",
-                crossDomain: true,
-                url: "/blog/creatingRoute",
-                contentType: "application/json; charset=utf-8",
-                data: credentialsJson
-            };
-            $.ajax(settings).done(function (response) {
-            }).fail(function (jqXHR, textStatus) {
-                console.log(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);
-            });
-        }
+    function creatingRoute(obj) {
+        console.log(obj);
+        var credentialsJson = '{'
+            + '"username" : "' + 1
+            + '}';
+        var settings = {
+            type: "POST",
+            crossDomain: true,
+            url: "/blog/creatingRoute",
+            contentType: "application/json; charset=utf-8",
+            data: credentialsJson
+        };
+        $.ajax(settings).done(function (response) {
+        }).fail(function (jqXHR, textStatus) {
+            console.log(jqXHR.status + " " + jqXHR.statusText + ". " + jqXHR.responseText);
+        });
+    }
 </script>

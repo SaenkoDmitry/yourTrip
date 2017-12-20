@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add images</title>
+</head>
+<body>
+<div class="block">
+
+    <!--/*@thymesVar id="route" type="ru.yourtrip.repo.models.Route"*/-->
+    <form th:action="@{'/api/aws/s3/upload/' + ${route.getId().toString()}}" method="post" enctype="multipart/form-data">
+        <label for="file">Choose files to upload</label>
+        <input type="file" id="file" name="file" th:multiple="multiple" accept="/image/*" />
+        <input type="submit" value="Submit"/>
+    </form>
+    -->
+</div>
+</body>
+</html>

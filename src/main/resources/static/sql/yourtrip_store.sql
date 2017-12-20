@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS person (
     login varchar(100) NOT NULL,
     nickname varchar(100) NOT NULL,
     avatar varchar(200) NOT NULL,
+    gender VARCHAR(6),
     hash varchar(100) NOT NULL,
     mail varchar(255) NOT NULL,
     birthday date NOT NULL,
